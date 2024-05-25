@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Sharing Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Video Sharing Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Trending</a></li>
+                <li><a href="#">Subscriptions</a></li>
+                <li><a href="#">Library</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <button id="sign-in">Sign In</button>
+            <button id="sign-up">Sign Up</button>
+        </div>
+    </header>
+    <main>
+        <section id="video-upload">
+            <h2>Upload Your Video</h2>
+            <form id="upload-form">
+                <input type="file" id="video-file" accept="video/*">
+                <input type="text" id="video-title" placeholder="Title">
+                <textarea id="video-description" placeholder="Description"></textarea>
+                <button type="submit">Upload</button>
+            </form>
+        </section>
+        <section id="video-feed">
+            <!-- Video feed will be populated dynamically -->
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Video Sharing Platform</p>
+    </footer>
+</body>
+</html>
