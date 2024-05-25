@@ -1,0 +1,61 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.user-actions {
+    float: right;
+}
+
+/* Main Content Styles */
+main {
+    padding: 20px;
+}
+
+#video-upload, #video-feed {
+    margin-bottom: 30px;
+}
+
+#video-upload form {
+    max-width: 500px;
+}
+
+#video-upload input[type="file"], #video-upload input[type="text"], #video-upload textarea {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#video-upload button {
+    padding: 8px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+}
