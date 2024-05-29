@@ -3,59 +3,213 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 header {
-    background-color: #ff0000;
+    background-color: #003366;
     color: #ffffff;
-    padding: 10px;
+    padding: 20px 0;
+    width: 100%;
+}
+
+header h1 {
+    font-size: 2.5rem;
 }
 
 nav ul {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 nav li {
     display: inline;
-    margin-right: 20px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.25rem;
 }
 
 .user-actions {
-    float: right;
+    margin-top: 10px;
 }
 
-/* Main Content Styles */
+.user-actions button {
+    background-color: #ff6600;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 main {
-    padding: 20px;
+    padding: 40px 0;
+    width: 100%;
+    flex: 1;
 }
 
 #video-upload, #video-feed {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 #video-upload form {
-    max-width: 500px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #video-upload input[type="file"], #video-upload input[type="text"], #video-upload textarea {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
 #video-upload button {
-    padding: 8px 20px;
+    padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.25rem;
 }
 
-/* Footer Styles */
+#video-upload button:hover {
+    background-color: #45a049;
+}
+
 footer {
     background-color: #333333;
     color: #ffffff;
     text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#auth-form input {
+    display: block;
+    width: calc(100% - 22px);
+    margin: 10px auto;
     padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+#auth-form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.25rem;
+}
+
+#auth-form button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 1rem;
+    }
+
+    .user-actions button {
+        margin: 5px 0;
+        font-size: 0.9rem;
+    }
+
+    #video-upload form {
+        padding: 10px;
+    }
+
+    #video-upload button {
+        font-size: 1rem;
+    }
+
+    footer p {
+        font-size: 0.875rem;
+    }
 }
