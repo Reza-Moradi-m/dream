@@ -17,7 +17,7 @@ body {
 }
 
 header {
-    background-color: #003366;
+    background-color: #000000;
     color: #ffffff;
     padding: 20px 0;
     width: 100%;
@@ -50,7 +50,7 @@ nav a {
 }
 
 .user-actions button {
-    background-color: #ff6600;
+    background-color: #806800;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -118,12 +118,12 @@ footer p {
 
 /* Logo styles */
 .logo-top {
-    height: 200px;
+    height: 400px;
     width: auto;
 }
 
 .logo-bottom {
-    height: 170px;
+    height: 360px;
     width: auto;
 }
 
