@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const videos = [
         {
             id: 1,
-            title: "Sample Video 1",
-            description: "This is the first sample video",
+            title: "Welcome to Our Website",
+            description: "Dream has been number one partner to help you to acheive to your dream and make it real",
             url: "sample-video-1.mp4",
             comments: [
                 { user: "User1", comment: "Great video!" },
