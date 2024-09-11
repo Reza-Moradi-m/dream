@@ -20,11 +20,16 @@
                     <li><a href="#">Trending</a></li>
                     <li><a href="#">Subscriptions</a></li>
                     <li><a href="#">Library</a></li>
+
                 </ul>
             </nav>
             <div class="user-actions">
                 <button id="sign-in">Sign In</button>
                 <button id="sign-up">Sign Up</button>
+                <section id="premium-section">
+                    <h2>Upgrade to Premium</h2>
+                    <button id="checkout-button">Upgrade to Premium</button>
+                  </section>
             </div>
             <h4>Introducing Dream – The Ultimate Challenge Platform for Achieving Your Goals</h4>
             <h1>
@@ -59,11 +64,12 @@
             <section id="video-upload">
                 <h2>Upload Your Video</h2>
                 <form id="upload-form">
-                    <input type="file" id="video-file" accept="video/*">
-                    <input type="text" id="video-title" placeholder="Title">
+                    <input type="file" id="video-file" accept="video/*" required />
+                    <input type="text" id="video-title" placeholder="Title" required />
                     <textarea id="video-description" placeholder="Description"></textarea>
                     <button type="submit">Upload</button>
                 </form>
+                
             </section>
             <section id="video-feed">
                 <!-- Video feed will be populated dynamically -->

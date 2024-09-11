@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 1,
             title: "Welcome to Our Website",
-            description: "Dream has been number one partner to help you to acheive to your dream and make it real",
+            description: "Dream has been number one partner to help you achieve your dream and make it real",
             url: "sample-video-1.mp4",
             comments: [
                 { user: "User1", comment: "Great video!" },
@@ -106,12 +106,54 @@ document.addEventListener('DOMContentLoaded', () => {
         const description = document.getElementById("video-description").value;
         const videoFile = document.getElementById("video-file").files[0];
 
-        // Here you can upload the video file to the server and store its metadata (title, description, etc.)
-        // After successful upload, you can update the 'videos' array and call displayVideos() to refresh the video feed
+        // Upload the video file to the server
+        const formData = new FormData();
+        formData.append("video-file", videoFile);
+        formData.append("title", title);
+        formData.append("description", description);
+
+        fetch('/upload-video', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Video uploaded successfully!");
+            displayVideos(); // Refresh video feed
+        })
+        .catch(err => {
+            console.error("Error uploading video:", err);
+        });
     }
 
     document.getElementById("upload-form").addEventListener("submit", handleUploadForm);
 
     // Initial display of videos
     displayVideos();
+
+    // Stripe Integration for Payment
+    const stripe = Stripe('pk_live_51PxnnvRtwuLdHUxMIYpyt18ZDI6R6KL9NeFkkQz0zIXBNZQ34AhXfQ8fCUhfjv7ALnZIC6c3RpEpy2y24goHYF6000mXx71j');
+    const checkoutButton = document.getElementById("checkout-button");
+
+    checkoutButton.addEventListener('click', async () => {
+        try {
+            const response = await fetch('/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId: 1 }) // Replace with actual user ID
+            });
+
+            const session = await response.json();
+            // Redirect to Stripe Checkout
+            const result = await stripe.redirectToCheckout({ sessionId: session.id });
+
+            if (result.error) {
+                alert(result.error.message);
+            }
+        } catch (error) {
+            console.error("Error initiating payment:", error);
+        }
+    });
 });

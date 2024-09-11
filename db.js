@@ -1,5 +1,6 @@
-require('dotenv').config();
+// db.js
 const { Pool } = require('pg');
+require('dotenv').config(); // This will load the .env file
 
 const pool = new Pool({
     user: process.env.DB_USER,
