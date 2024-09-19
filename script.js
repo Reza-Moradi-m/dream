@@ -106,6 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const description = document.getElementById("video-description").value;
         const videoFile = document.getElementById("video-file").files[0];
 
+        // Ensure the file exists before proceeding
+        if (!videoFile) {
+            alert("Please select a video file to upload.");
+            return;
+        }
+
         // Upload the video file to the server
         const formData = new FormData();
         formData.append("video-file", videoFile);
@@ -116,13 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(async response => {
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to upload video');
+            }
+            return response.json();
+        })
         .then(data => {
             alert("Video uploaded successfully!");
-            displayVideos(); // Refresh video feed
+            console.log("Uploaded video URL:", data.videoUrl);
+            // Call function to refresh the video feed or update UI
         })
         .catch(err => {
             console.error("Error uploading video:", err);
+            alert("Error uploading video: " + err.message);
         });
     }
 

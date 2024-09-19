@@ -33,9 +33,9 @@ const upload = multer({ storage: multerStorage });
 
 // Route for uploading videos
 app.post('/upload-video', upload.single('video-file'), async (req, res) => {
-  const { userId, title, description } = req.body;
+  const { title, description } = req.body;
 
-  if (!req.file) return res.status(400).send('No file uploaded.');
+  if (!req.file) return res.status(400).json({ error: 'No file uploaded.' });
 
   try {
     const blob = storage.bucket(bucketName).file(req.file.originalname);
@@ -49,7 +49,7 @@ app.post('/upload-video', upload.single('video-file'), async (req, res) => {
 
     blobStream.on('error', err => {
       console.error('Error uploading to Google Cloud:', err);
-      res.status(500).send('Unable to upload video.');
+      res.status(500).json({ error: 'Unable to upload video.' });
     });
 
     blobStream.on('finish', async () => {
@@ -57,19 +57,21 @@ app.post('/upload-video', upload.single('video-file'), async (req, res) => {
 
       try {
         const result = await pool.query(
-          'INSERT INTO videos (user_id, title, description, video_url) VALUES ($1, $2, $3, $4) RETURNING id',
-          [userId, title, description, videoUrl]
+          'INSERT INTO videos (title, description, video_url) VALUES ($1, $2, $3) RETURNING id',
+          [title, description, videoUrl]
         );
 
         res.status(201).json({ videoId: result.rows[0].id, videoUrl });
       } catch (err) {
-        res.status(500).send('Error saving video details.');
+        console.error('Error saving video details:', err);
+        res.status(500).json({ error: 'Error saving video details.' });
       }
     });
 
     blobStream.end(req.file.buffer);
   } catch (err) {
-    res.status(500).send('Error uploading file.');
+    console.error('Error uploading file:', err);
+    res.status(500).json({ error: 'Error uploading file.' });
   }
 });
 
