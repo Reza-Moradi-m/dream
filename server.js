@@ -1,3 +1,5 @@
+// server.js
+
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Use Stripe secret key from .env
 require('dotenv').config();
@@ -38,7 +40,7 @@ app.post('/upload-video', upload.single('video-file'), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded.' });
 
   try {
-    const blob = storage.bucket(bucketName).file(req.file.originalname);
+    const blob = storage.bucket(bucketName).file(Date.now() + '-' + req.file.originalname);
     const blobStream = blob.createWriteStream({
       resumable: false,
       contentType: req.file.mimetype,
