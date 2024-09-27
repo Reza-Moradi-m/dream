@@ -31,7 +31,11 @@ const bucketName = 'dream-platform-videos'; // Your Google Cloud Storage bucket
 
 // Configure Multer for file uploads
 const multerStorage = multer.memoryStorage();
-const upload = multer({ storage: multerStorage });
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 50 * 1024 * 1024 }, // Ensure this limit is sufficient
+});
+
 
 // Route for uploading videos
 app.post('/upload-video', upload.single('video-file'), async (req, res) => {
