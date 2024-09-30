@@ -139,3 +139,54 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+app.post('/upload-video', upload.single('video-file'), async (req, res) => {
+  console.log('Video upload request received');
+  const { title, description } = req.body;
+  console.log('Title:', title);
+  console.log('Description:', description);
+
+  if (!req.file) {
+    console.error('No file uploaded');
+    return res.status(400).json({ error: 'No file uploaded.' });
+  }
+
+  try {
+    console.log('Uploading file:', req.file.originalname);
+    const blob = storage.bucket(bucketName).file(Date.now() + '-' + req.file.originalname);
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      contentType: req.file.mimetype,
+      metadata: {
+        firebaseStorageDownloadTokens: 'your_token_if_needed',
+      },
+    });
+
+    blobStream.on('error', err => {
+      console.error('Error uploading to Google Cloud:', err);
+      res.status(500).json({ error: 'Unable to upload video.' });
+    });
+
+    blobStream.on('finish', async () => {
+      console.log('File uploaded successfully');
+      const videoUrl = `https://storage.googleapis.com/${bucketName}/${blob.name}`;
+
+      try {
+        console.log('Saving video details to database');
+        const result = await pool.query(
+          'INSERT INTO videos (title, description, video_url) VALUES ($1, $2, $3) RETURNING id',
+          [title, description, videoUrl]
+        );
+
+        res.status(201).json({ videoId: result.rows[0].id, videoUrl });
+      } catch (err) {
+        console.error('Error saving video details:', err);
+        res.status(500).json({ error: 'Error saving video details.' });
+      }
+    });
+
+    blobStream.end(req.file.buffer);
+  } catch (err) {
+    console.error('Error uploading file:', err);
+    res.status(500).json({ error: 'Error uploading file.' });
+  }
+});
