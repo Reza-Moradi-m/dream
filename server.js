@@ -36,7 +36,6 @@ const upload = multer({
   limits: { fileSize: 50 * 1024 * 1024 }, // Ensure this limit is sufficient
 });
 
-
 // Route for uploading videos
 app.post('/upload-video', upload.single('video-file'), async (req, res) => {
   const { title, description } = req.body;
@@ -135,10 +134,27 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Route for user registration
+app.post('/register', (req, res) => {
+  // Process registration request
+  const { username, password } = req.body;
+
+  // Basic validation (you can expand this)
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
+
+  // TODO: Add logic for user registration (e.g., save to database, password hashing)
+  // For now, respond with a success message
+  res.status(200).json({ message: 'Registration successful' });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+// Video upload handler (duplicate)
 app.post('/upload-video', upload.single('video-file'), async (req, res) => {
   console.log('Video upload request received');
   const { title, description } = req.body;
